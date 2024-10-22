@@ -93,9 +93,9 @@ main() {
   info "loading database"
   FILE=LibationContext.db
   # If user provides a separate database mount, use that
-  if [ is_mounted ${LIBATION_DB_DIR} ];
+  if is_mounted ${LIBATION_DB_DIR};
   then
-    debug using database directory `${LIBATION_DB_DIR}`
+    debug "using database directory ${LIBATION_DB_DIR}"
     if [ -f "${LIBATION_DB_DIR}/${FILE}" ]; then
       info "database found in ${LIBATION_DB_DIR}"
     else
@@ -104,7 +104,7 @@ main() {
     ln -s /${LIBATION_DB_DIR}/${FILE} ${LIBATION_CONFIG_INTERNAL}/${FILE}
   # Otherwise, use the config directory
   else
-    debug using config directory `${LIBATION_CONFIG_DIR}`
+    debug "using config directory ${LIBATION_CONFIG_DIR}"
     if [ -f "${LIBATION_CONFIG_DIR}/${FILE}" ]; then
       info "database found in ${LIBATION_CONFIG_DIR}"
     else
@@ -114,7 +114,7 @@ main() {
   fi
 
   # Try to warn if books dir wasn't mounted in
-  if [ ! is_mounted ${LIBATION_BOOKS_DIR} ];
+  if !is_mounted ${LIBATION_BOOKS_DIR};
   then
     warn "${LIBATION_BOOKS_DIR} does not appear to be mounted, books will not be saved"
   fi
